@@ -5,7 +5,7 @@ Base URL: `http://localhost:3000`
 Minden válasz JSON.
 
 ## 1) GET /api/items
-Talált tárgyak listázása (csak `status = "talalt"`).
+Talált tárgyak listázása (csak `status = "talált"`).
 
 **Példa válasz:**
 ```json
@@ -14,7 +14,7 @@ Talált tárgyak listázása (csak `status = "talalt"`).
     "id": 1,
     "title": "Fekete kulcscsomó",
     "description": "3 kulcs, kék kulcstartóval",
-    "status": "talalt",
+    "status": "talált",
     "image_url": "https://example.com/item1.jpg"
   }
 ]
@@ -28,7 +28,7 @@ Talált tárgyak listázása (csak `status = "talalt"`).
 {
   "title": "Szürke pulóver",
   "description": "M-es méret, fehér felirat",
-  "status": "talalt",
+  "status": "talált",
   "image_url": "https://example.com/pulover.jpg"
 }
 ```
@@ -39,7 +39,7 @@ Talált tárgyak listázása (csak `status = "talalt"`).
   "id": 2,
   "title": "Szürke pulóver",
   "description": "M-es méret, fehér felirat",
-  "status": "talalt",
+  "status": "talált",
   "image_url": "https://example.com/pulover.jpg"
 }
 ```
