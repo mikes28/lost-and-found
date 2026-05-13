@@ -1,103 +1,85 @@
-# Lost & Found API v1
+# Lost & Found API (MVP)
 
-Ez az API segít az iskolában elveszett vagy talált tárgyakat bejelenteni, keresni és kezelni. A cél, hogy a titkárság egyszerűen tudja rögzíteni a talált dolgokat, és az elveszett tárgyak igényléseit gyorsan összekapcsolhassa a megfelelő bejelentésekkel.
+Base URL: `http://localhost:3000`
 
----
+Minden válasz JSON.
 
-## Technikai összefoglaló
+## 1) GET /api/items
+Talált tárgyak listázása (csak `status = "talalt"`).
 
-- **Base URL:** `http://localhost:3000/api`
-- **Minden válasz:** JSON formátum
-
-### HTTP státuszkódok röviden
-- **200 OK:** Sikeres lekérdezés vagy módosítás.
-- **201 Created:** Sikeres létrehozás (pl. új tárgy).
-- **400 Bad Request:** Hibás kérés (pl. hiányzó adat).
-- **401 Unauthorized:** Nincs bejelentkezve vagy nincs jogosultság.
-- **404 Not Found:** Nem található (pl. nincs ilyen tárgy).
-- **500 Server Error:** Szerverhiba, váratlan hiba történt.
-
----
-
-## Fő entitások
-
-- **User:** Diák vagy tanár, aki bejelentést tesz.
-- **Item (tárgy):** Elveszett vagy talált dolog.
-- **Claim/Request (igénylés):** Ha valaki azt mondja, hogy az adott tárgy az övé, részletes leírást ad róla.
-
----
-
-## API végpontok
-
-### 1. GET /health
-- **Mire jó:** Ellenőrzi, hogy fut-e a szerver.
-- **Példa válasz:**
-```json
-{
-  "status": "ok"
-}
-```
-- **Tipikus hibakód:** 500 (ha nem működik a szerver)
-
----
-
-### 2. GET /items
-- **Leírás:** Listázza az összes talált tárgyat (csak titkársági felhasználóknak).
-- **Query paraméterek:**
-  - `type`: `lost` vagy `found` (pl. csak elveszett vagy csak talált)
-  - `status`: `open`, `matched`, `closed` (pl. csak nyitott bejegyzések)
-  - `q`: szöveges keresés cím/leírás alapján
-- **Példa URL-ek:**
-  - `/api/items?type=lost&status=open`
-  - `/api/items?q=kulcstartó`
-- **Példa válasz:**
+**Példa válasz:**
 ```json
 [
   {
     "id": 1,
-    "title": "Fekete hoodie",
-    "type": "lost",
-    "status": "open",
-    "location": "B2 terem",
-    "date": "2026-04-10",
-    "reported_by": {
-      "id": 5,
-      "name": "Kiss Anna"
-    }
+    "title": "Fekete kulcscsomó",
+    "description": "3 kulcs, kék kulcstartóval",
+    "status": "talalt",
+    "image_url": "https://example.com/item1.jpg"
   }
 ]
 ```
-- **Tipikus hibakódok:** 400 (rossz paraméter), 500 (szerverhiba)
 
----
+## 2) POST /api/items
+Új talált tárgy rögzítése (**csak admin**).
 
-### 3. POST /claims
-- **Leírás:** Elveszett tárgy igénylése részletes leírással.
-- **Request body mezők:**
-  - `item_id` (kötelező): Az igényelt tárgy azonosítója.
-  - `description` (kötelező): Részletes leírás (pl. márka, szín, méret, egyedi ismertetőjegyek).
-- **Példa kérés body:**
+**Példa kérés:**
 ```json
 {
-  "item_id": 1,
-  "description": "Fekete hoodie, fehér cipzárral, B2 teremben veszett el."
+  "title": "Szürke pulóver",
+  "description": "M-es méret, fehér felirat",
+  "status": "talalt",
+  "image_url": "https://example.com/pulover.jpg"
 }
 ```
-- **Példa válasz (201):**
+
+**Példa válasz:**
 ```json
 {
-  "claim_id": 3,
-  "status": "pending"
+  "id": 2,
+  "title": "Szürke pulóver",
+  "description": "M-es méret, fehér felirat",
+  "status": "talalt",
+  "image_url": "https://example.com/pulover.jpg"
 }
 ```
-- **Tipikus hibakódok:** 400 (hiányzó adat), 404 (nincs ilyen tárgy), 500 (szerverhiba)
 
----
+## 3) POST /api/claims
+Diák jelentkezik egy tárgyra.
 
-## Hibakódok összefoglaló
-- **200 OK:** Sikeres kérés
-- **201 Created:** Sikeres létrehozás
-- **400 Bad Request:** Hibás kérés
-- **401 Unauthorized:** Nincs jogosultság
-- **404 Not Found:** Nem található
-- **500 Server Error:** Szerverhiba
+**Példa kérés:**
+```json
+{
+  "item_id": 2,
+  "user_id": 15,
+  "message": "Az enyém, belül a címkébe bele van írva a nevem."
+}
+```
+
+**Példa válasz:**
+```json
+{
+  "id": 7,
+  "item_id": 2,
+  "user_id": 15,
+  "message": "Az enyém, belül a címkébe bele van írva a nevem."
+}
+```
+
+## 4) PUT /api/items/:id
+A titkárság a tárgy státuszát „visszaadva”-ra állítja.
+
+**Példa kérés:**
+```json
+{
+  "status": "visszaadva"
+}
+```
+
+**Példa válasz:**
+```json
+{
+  "id": 2,
+  "status": "visszaadva"
+}
+```
