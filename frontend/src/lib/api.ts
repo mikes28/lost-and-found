@@ -1,18 +1,48 @@
-import type { Item, Claim } from "@/types";
+const BASE_URL = "http://localhost:3000/api";
 
-const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3000";
-
-async function req<T>(path: string, opts?: RequestInit): Promise<T> {
-  const res = await fetch(`${BASE}${path}`, {
+export async function login(email: string, password: string) {
+  const res = await fetch(`${BASE_URL}/auth/login`, {
+    method: "POST",
     headers: { "Content-Type": "application/json" },
-    ...opts,
+    body: JSON.stringify({ email, password }),
   });
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
   return res.json();
 }
 
-export const getItems   = ()                             => req<Item[]>("/api/items");
-export const createItem = (d: Omit<Item, "id">)          => req<Item>("/api/items", { method: "POST", body: JSON.stringify(d) });
-export const updateItem = (id: number, status: Item["status"]) =>
-  req<Pick<Item,"id"|"status">>(`/api/items/${id}`, { method: "PUT", body: JSON.stringify({ status }) });
-export const createClaim = (d: Omit<Claim,"id">)         => req<Claim>("/api/claims", { method: "POST", body: JSON.stringify(d) });
+export async function register(email: string, password: string, name: string) {
+  const res = await fetch(`${BASE_URL}/auth/register`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password, name }),
+  });
+  return res.json();
+}
+
+export async function getItems() {
+  const res = await fetch(`${BASE_URL}/items`);
+  return res.json();
+}
+
+export async function createItem(title: string, description: string, token: string) {
+  const res = await fetch(`${BASE_URL}/items`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+    body: JSON.stringify({ title, description }),
+  });
+  return res.json();
+}
+
+export async function updateItemStatus(id: number, status: string, token: string) {
+  const res = await fetch(`${BASE_URL}/items/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+    body: JSON.stringify({ status }),
+  });
+  return res.json();
+}
