@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getItems, type Item } from "@/lib/api";
+import { getItems, getClaims, deleteClaim, type Item } from "@/lib/api";
+import { getSession } from "@/lib/session";
 
 export default function HomePage() {
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [claimedMap, setClaimedMap] = useState<Record<number, number>>({});
 
   useEffect(() => {
     let mounted = true;
@@ -18,6 +20,18 @@ export default function HomePage() {
 
         if (mounted) {
           setItems(data);
+          // load user's claims to mark items claimed by them
+          const session = getSession();
+          if (session) {
+            try {
+              const claims = await getClaims({ userId: session.id });
+              const map: Record<number, number> = {};
+              for (const c of claims) map[c.item_id] = c.id;
+              setClaimedMap(map);
+            } catch {
+              // ignore claims fetch error for now
+            }
+          }
         }
       } catch {
         if (mounted) {
@@ -64,9 +78,23 @@ export default function HomePage() {
               </div>
               <div className="mt-4 flex items-center justify-between gap-3">
                 <p className="text-xs text-gray-500">Tárgy ID: {item.id}</p>
-                <Link href={`/claims?${new URLSearchParams({ item_id: String(item.id), title: item.title }).toString()}`} className="rounded border border-gray-400 px-3 py-2 text-sm font-bold text-gray-900 hover:bg-gray-100">
-                  EZ AZ ENYÉM!
-                </Link>
+                {claimedMap[item.id] ? (
+                  <button onClick={async () => {
+                    const claimId = claimedMap[item.id];
+                    try {
+                      await deleteClaim(claimId);
+                      setClaimedMap((m) => { const copy = { ...m }; delete copy[item.id]; return copy; });
+                    } catch {
+                      alert('Nem sikerült visszavonni az igénylést.');
+                    }
+                  }} className="rounded border border-gray-400 px-3 py-2 text-sm font-bold text-gray-900 hover:bg-gray-100">
+                    Mégsem
+                  </button>
+                ) : (
+                  <Link href={`/claims?${new URLSearchParams({ item_id: String(item.id), title: item.title }).toString()}`} className="rounded border border-gray-400 px-3 py-2 text-sm font-bold text-gray-900 hover:bg-gray-100">
+                    EZ AZ ENYÉM!
+                  </Link>
+                )}
               </div>
             </article>
           ))}

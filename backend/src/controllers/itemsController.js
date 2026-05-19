@@ -2,7 +2,10 @@ const itemsModel = require('../models/itemsModel');
 
 const getItems = (req, res) => {
     itemsModel.getFoundItems((err, items) => {
-        if (err) return res.status(500).json({ error: 'Database error' });
+        if (err) {
+            console.error('getItems DB error:', err);
+            return res.status(500).json({ error: 'Database error' });
+        }
         res.json(items);
     });
 };

@@ -11,6 +11,8 @@ export default function ClaimsPage() {
   const [itemTitle, setItemTitle] = useState("");
   const [userId, setUserId] = useState("");
   const [message, setMessage] = useState("");
+  const [userName, setUserName] = useState<string | null>(null);
+  const [userOsztaly, setUserOsztaly] = useState<string | null>(null);
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
@@ -23,6 +25,9 @@ export default function ClaimsPage() {
     setItemId(queryItemId);
     setItemTitle(queryTitle);
     setUserId(session ? String(session.id) : "");
+    // Prefill name/osztaly from session if present; do NOT default client-side.
+    setUserName(session?.name ?? null);
+    setUserOsztaly(session?.osztaly ?? null);
   }, [searchParams]);
 
   const itemLabel = useMemo(() => itemTitle || (itemId ? `Tárgy #${itemId}` : "Választott tárgy"), [itemId, itemTitle]);
@@ -37,11 +42,16 @@ export default function ClaimsPage() {
     setSending(true);
     setError("");
 
-    try {
+      try {
+      const session = getSession();
+      const submitUserName = session?.name ?? userName ?? undefined;
+      const submitUserOsztaly = session?.osztaly ?? userOsztaly ?? undefined;
       await submitClaim({
         itemId: Number(itemId),
         userId: Number(userId),
         message,
+        userName: submitUserName,
+        userOsztaly: submitUserOsztaly,
       });
       setSent(true);
     } catch {
@@ -83,6 +93,14 @@ export default function ClaimsPage() {
         <div>
           <label className="mb-1 block text-sm text-gray-700">Felhasználói ID</label>
           <input value={userId} readOnly className="w-full border border-gray-300 bg-gray-100 px-3 py-2 text-sm text-gray-700" />
+        </div>
+        <div>
+          <label className="mb-1 block text-sm text-gray-700">Név</label>
+          <input value={userName ?? ""} readOnly className="w-full border border-gray-300 bg-gray-100 px-3 py-2 text-sm text-gray-700" />
+        </div>
+        <div>
+          <label className="mb-1 block text-sm text-gray-700">Osztály</label>
+          <input value={userOsztaly ?? ""} readOnly className="w-full border border-gray-300 bg-gray-100 px-3 py-2 text-sm text-gray-700" />
         </div>
         <div>
           <label className="mb-1 block text-sm text-gray-700">Miért gondolod, hogy a tiéd?</label>

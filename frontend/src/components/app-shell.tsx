@@ -16,7 +16,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     setSession(currentSession);
     setReady(true);
 
-    if (pathname !== "/login" && !currentSession) {
+    if (pathname !== "/login" && pathname !== "/admin" && !currentSession) {
       router.replace("/login");
     }
 
@@ -53,7 +53,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <div className="mx-auto flex max-w-5xl items-center gap-4">
           <div>
             <p className="text-sm font-bold">Lost & Found</p>
-            <p className="text-xs text-gray-600">Bejelentkezve: {session.name} ({session.id})</p>
+            <p className="text-xs text-gray-600">Bejelentkezve: {session.name} {session.osztaly ? `(${session.osztaly})` : ''}</p>
           </div>
           <div className="ml-auto flex items-center gap-2">
             {navLinks.map((link) => (

@@ -2,8 +2,9 @@ const SESSION_KEY = "lost-and-found-session";
 
 export type SessionUser = {
   id: number;
-  email: string;
   name: string;
+  osztaly: string;
+  isAdmin?: boolean;
 };
 
 function isBrowser() {
@@ -56,13 +57,15 @@ export function clearSession() {
   window.localStorage.removeItem(SESSION_KEY);
 }
 
-export function signIn(email: string, name?: string) {
-  const normalizedEmail = email.trim().toLowerCase();
+export function signIn(name: string, osztaly?: string) {
+  const normalizedName = name.trim();
+  const klass = (osztaly || "").trim();
+  const seed = `${normalizedName}|${klass}`;
   const session = {
-    id: deriveUserId(normalizedEmail),
-    email: normalizedEmail,
-    name: name?.trim() || normalizedEmail.split("@")[0] || "Felhasználó",
-  };
+    id: deriveUserId(seed),
+    name: normalizedName || "Felhasználó",
+    osztaly: klass || "",
+  } as SessionUser;
 
   setSession(session);
   return session;
