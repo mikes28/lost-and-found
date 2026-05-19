@@ -1,66 +1,74 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "@/lib/session";
 
 export default function LoginPage() {
-  const [tab, setTab] = useState<"login" | "register">("login");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
   const router = useRouter();
 
   function handleLogin(e: React.FormEvent) {
     e.preventDefault();
-    if (!email || !password) { alert("Töltsd ki mindkét mezőt!"); return; }
-    alert("Backend még nem fut — login nem elérhető.");
+    if (!email || !password) {
+      alert("Töltsd ki mindkét mezőt!");
+      return;
+    }
+
+    signIn(email, name);
+    router.push("/");
   }
 
   function handleRegister(e: React.FormEvent) {
     e.preventDefault();
-    if (!email || !password || !name) { alert("Töltsd ki az összes mezőt!"); return; }
-    alert("Backend még nem fut — regisztráció nem elérhető.");
+    if (!email || !password || !name) {
+      alert("Töltsd ki az összes mezőt!");
+      return;
+    }
+
+    signIn(email, name);
+    router.push("/");
   }
 
   return (
-    <div className="max-w-sm mx-auto mt-16">
-      <div className="flex mb-6 border-b border-zinc-700">
-        <button onClick={() => setTab("login")} className={`px-4 py-2 text-sm font-medium ${tab === "login" ? "text-white border-b-2 border-blue-500" : "text-zinc-400"}`}>
-          Bejelentkezés
-        </button>
-        <button onClick={() => setTab("register")} className={`px-4 py-2 text-sm font-medium ${tab === "register" ? "text-white border-b-2 border-blue-500" : "text-zinc-400"}`}>
-          Regisztráció
-        </button>
+    <div className="mx-auto mt-10 max-w-2xl border border-gray-300 bg-white p-6 sm:p-8">
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold">Bejelentkezés</h1>
+        <p className="mt-2 text-sm text-gray-700">Előbb be kell jelentkezni, utána lehet használni az oldalt.</p>
       </div>
 
-      {tab === "login" ? (
-        <form onSubmit={handleLogin} className="bg-zinc-900 border border-zinc-700 rounded-lg p-6 flex flex-col gap-4">
+      <div className="grid gap-4 md:grid-cols-2">
+        <form onSubmit={handleLogin} className="flex flex-col gap-4 border border-gray-300 bg-gray-50 p-4">
+          <h2 className="text-base font-bold text-gray-900">Belépés</h2>
           <div>
-            <label className="block text-sm font-medium mb-1 text-zinc-300">Email</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full bg-zinc-800 border border-zinc-600 rounded-md px-3 py-2 text-sm text-white placeholder-zinc-500" placeholder="pelda@iskola.hu"/>
+            <label className="mb-1 block text-sm text-gray-700">Email</label>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900" placeholder="pelda@iskola.hu" />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1 text-zinc-300">Jelszó</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full bg-zinc-800 border border-zinc-600 rounded-md px-3 py-2 text-sm text-white placeholder-zinc-500" placeholder="••••••••"/>
+            <label className="mb-1 block text-sm text-gray-700">Jelszó</label>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900" placeholder="••••••••" />
           </div>
-          <button type="submit" className="bg-blue-600 text-white rounded-md py-2 text-sm font-medium hover:bg-blue-700">Bejelentkezés</button>
+          <button type="submit" className="border border-gray-400 bg-white px-4 py-2 text-sm font-bold text-gray-900 hover:bg-gray-100">Belépés</button>
         </form>
-      ) : (
-        <form onSubmit={handleRegister} className="bg-zinc-900 border border-zinc-700 rounded-lg p-6 flex flex-col gap-4">
+
+        <form onSubmit={handleRegister} className="flex flex-col gap-4 border border-gray-300 bg-gray-50 p-4">
+          <h2 className="text-base font-bold text-gray-900">Regisztráció</h2>
           <div>
-            <label className="block text-sm font-medium mb-1 text-zinc-300">Név</label>
-            <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full bg-zinc-800 border border-zinc-600 rounded-md px-3 py-2 text-sm text-white placeholder-zinc-500" placeholder="Kovács Péter"/>
+            <label className="mb-1 block text-sm text-gray-700">Név</label>
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900" placeholder="Kovács Péter" />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1 text-zinc-300">Email</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full bg-zinc-800 border border-zinc-600 rounded-md px-3 py-2 text-sm text-white placeholder-zinc-500" placeholder="pelda@iskola.hu"/>
+            <label className="mb-1 block text-sm text-gray-700">Email</label>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900" placeholder="pelda@iskola.hu" />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1 text-zinc-300">Jelszó</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full bg-zinc-800 border border-zinc-600 rounded-md px-3 py-2 text-sm text-white placeholder-zinc-500" placeholder="••••••••"/>
+            <label className="mb-1 block text-sm text-gray-700">Jelszó</label>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900" placeholder="••••••••" />
           </div>
-          <button type="submit" className="bg-blue-600 text-white rounded-md py-2 text-sm font-medium hover:bg-blue-700">Regisztráció</button>
+          <button type="submit" className="border border-gray-400 bg-white px-4 py-2 text-sm font-bold text-gray-900 hover:bg-gray-100">Regisztráció</button>
         </form>
-      )}
+      </div>
     </div>
   );
 }

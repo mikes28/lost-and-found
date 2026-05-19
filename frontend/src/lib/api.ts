@@ -1,48 +1,67 @@
 const BASE_URL = "http://localhost:3000/api";
 
-export async function login(email: string, password: string) {
-  const res = await fetch(`${BASE_URL}/auth/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password }),
-  });
-  return res.json();
-}
+export type Item = {
+  id: number;
+  title: string;
+  description: string;
+  status: string;
+  image_url?: string | null;
+};
 
-export async function register(email: string, password: string, name: string) {
-  const res = await fetch(`${BASE_URL}/auth/register`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password, name }),
-  });
-  return res.json();
-}
+export type Claim = {
+  id: number;
+  item_id: number;
+  user_id: number;
+  message: string;
+};
 
-export async function getItems() {
-  const res = await fetch(`${BASE_URL}/items`);
-  return res.json();
-}
-
-export async function createItem(title: string, description: string, token: string) {
-  const res = await fetch(`${BASE_URL}/items`, {
-    method: "POST",
+async function requestJson<T>(path: string, init?: RequestInit) {
+  const res = await fetch(`${BASE_URL}${path}`, {
+    ...init,
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
+      ...(init?.headers ?? {}),
     },
-    body: JSON.stringify({ title, description }),
   });
-  return res.json();
+
+  if (!res.ok) {
+    const errorText = await res.text();
+    throw new Error(errorText || `Request failed with status ${res.status}`);
+  }
+
+  return res.json() as Promise<T>;
 }
 
-export async function updateItemStatus(id: number, status: string, token: string) {
-  const res = await fetch(`${BASE_URL}/items/${id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`,
-    },
+export function getItems() {
+  return requestJson<Item[]>("/items");
+}
+
+export function createItem(input: { title: string; description: string; imageUrl?: string }) {
+  return requestJson<Item>("/items", {
+    method: "POST",
+    body: JSON.stringify({
+      title: input.title,
+      description: input.description,
+      status: "talált",
+      image_url: input.imageUrl || null,
+    }),
+  });
+}
+
+export function submitClaim(input: { itemId: number; userId: number; message: string }) {
+  return requestJson<Claim>("/claims", {
+    method: "POST",
+    body: JSON.stringify({
+      item_id: input.itemId,
+      user_id: input.userId,
+      message: input.message,
+    }),
+  });
+}
+
+export function updateItemStatus(id: number, status: string) {
+  return requestJson<Pick<Item, "id" | "status">>(`/items/${id}`, {
+    method: "PUT",
     body: JSON.stringify({ status }),
   });
-  return res.json();
 }
