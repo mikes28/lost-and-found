@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { createItem, getItems, getClaims, type Item, updateItemStatus } from "@/lib/api";
+import { createItem, getItems, getClaims, type Claim, type Item, updateItemStatus } from "@/lib/api";
 import { getSession, setSession, deriveUserId, type SessionUser } from "@/lib/session";
 
 export default function AdminPage() {
@@ -10,7 +10,7 @@ export default function AdminPage() {
   const [imageUrl, setImageUrl] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [claimsMap, setClaimsMap] = useState<Record<number, Array<{ id: number; item_id: number; user_id: number; message: string }>>>({});
+  const [claimsMap, setClaimsMap] = useState<Record<number, Claim[]>>({});
   const [adminAuthorized, setAdminAuthorized] = useState(false);
   const [adminPassword, setAdminPassword] = useState("");
 
@@ -42,7 +42,7 @@ export default function AdminPage() {
       await loadItems();
       try {
         const claims = await getClaims();
-        const map: Record<number, any[]> = {};
+        const map: Record<number, Claim[]> = {};
         for (const c of claims) {
           if (!map[c.item_id]) map[c.item_id] = [];
           map[c.item_id].push(c);
