@@ -1,15 +1,15 @@
-# Jegyzetek, ötletek – Lost & Found
+# Jegyzetek – Lost & Found
 
-Ez a fájl szabadon használható ötletek, kérdések, tanári vagy diák megjegyzések gyűjtésére a projekthez.
+Ez a fájl szabadon használható ötletek, kérdések, tanári vagy diák megjegyzések gyűjtésére a projekthez. A jelenlegi alkalmazás már elkészült MVP, ezért ezek inkább további fejlesztési ötletek.
 
 ---
 
 ## Fejlesztési ötletek
 
-- Képfeltöltés a tárgyakhoz (pl. elveszett kulcstartó fotója)
+- Képfeltöltés a tárgyakhoz a jelenlegi URL mező helyett
 - Email/SMS értesítés, ha valaki jelentkezik egy tárgyra
-- Külön tanári/admin felület
-- Mobilbarát nézet (reszponzív design)
+- Szerver oldali admin autentikáció a kliens oldali jelszó helyett
+- Mobilbarát nézet finomhangolása
 - Statisztikák: hány tárgy került vissza, mennyi az átlagos megtalálási idő
 - Kategóriák: pl. ruházat, elektronika, kulcs, egyéb
 
@@ -17,9 +17,9 @@ Ez a fájl szabadon használható ötletek, kérdések, tanári vagy diák megje
 
 ## Kérdések, amiket érdemes átgondolni
 
-- Ki tud bejelenteni?
-- Ki látja a képeket?
-- Hogyan derül ki, tényleg azé, aki jelentkezik érte?
+- Ki tud bejelenteni a tárgyakat az admin oldalon?
+- Ki látja és kezeli az igényléseket?
+- Elég-e a név + osztály + leírás az igényléshez, vagy kell további bizonyíték?
 - Hogyan lehetne gyorsítani az elveszett és talált tárgyak összekapcsolását?
 - Milyen részleteket kell megadni az igénylésnél (pl. márka, szín, méret)?
 
@@ -33,7 +33,7 @@ Ez a fájl szabadon használható ötletek, kérdések, tanári vagy diák megje
 
 ## Diák megjegyzések
 
-> "A Vue 3-at még tanuljuk, de a Vite gyorsan elindul."
+> "A felület legyen egyszerű, gyorsan áttekinthető, és mobilon is használható."
 
 ---
 

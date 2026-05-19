@@ -25,3 +25,57 @@ Egyszerű talált tárgy rendszer iskolai használatra.
 
 - [API leírás](docs/api.md)
 - [ER-diagram](docs/er-diagram.md)
+
+## Futtatás
+
+### Lokálisan
+
+Backend:
+
+```bash
+cd backend
+npm install
+npm start
+```
+
+Frontend:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+A frontend alapból a 3001-es porton fut, a backend pedig a 3000-esen.
+
+### Dockerrel
+
+A projekthez van `docker-compose.yml` és `docker-compose.override.yml` is.
+
+```bash
+sudo docker compose up --build
+```
+
+Hasznos parancsok:
+
+```bash
+sudo docker compose ps
+sudo docker compose logs -f
+sudo docker compose down
+```
+
+### Tesztek
+
+Backend tesztek:
+
+```bash
+cd backend
+npm test
+```
+
+Frontend tesztek:
+
+```bash
+cd frontend
+npm test
+```

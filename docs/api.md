@@ -1,11 +1,11 @@
-# Lost & Found API (MVP)
+# Lost & Found API
 
-Base URL: `http://localhost:3000`
+Base URL helyben: `http://localhost:3000/api`
 
 Minden válasz JSON.
 
-## 1) GET /api/items
-Talált tárgyak listázása (csak `status = "talált"`).
+## 1) GET /items
+A még elérhető tárgyak listázása.
 
 **Példa válasz:**
 ```json
@@ -20,8 +20,8 @@ Talált tárgyak listázása (csak `status = "talált"`).
 ]
 ```
 
-## 2) POST /api/items
-Új talált tárgy rögzítése (**csak admin**).
+## 2) POST /items
+Új tárgy rögzítése az admin felületről.
 
 **Példa kérés:**
 ```json
@@ -44,7 +44,24 @@ Talált tárgyak listázása (csak `status = "talált"`).
 }
 ```
 
-## 3) POST /api/claims
+## 3) GET /claims
+Az összes igénylés listázása. Az admin oldalon ez jelenik meg tárgyanként csoportosítva.
+
+**Példa válasz:**
+```json
+[
+  {
+    "id": 7,
+    "item_id": 2,
+    "user_id": 15,
+    "message": "Az enyém, belül a címkébe bele van írva a nevem.",
+    "user_name": "Teszt Elek",
+    "user_osztaly": "10.c"
+  }
+]
+```
+
+## 4) POST /claims
 Diák jelentkezik egy tárgyra.
 
 **Példa kérés:**
@@ -52,7 +69,9 @@ Diák jelentkezik egy tárgyra.
 {
   "item_id": 2,
   "user_id": 15,
-  "message": "Az enyém, belül a címkébe bele van írva a nevem."
+  "message": "Az enyém, belül a címkébe bele van írva a nevem.",
+  "user_name": "Teszt Elek",
+  "user_osztaly": "10.c"
 }
 ```
 
@@ -62,12 +81,24 @@ Diák jelentkezik egy tárgyra.
   "id": 7,
   "item_id": 2,
   "user_id": 15,
-  "message": "Az enyém, belül a címkébe bele van írva a nevem."
+  "message": "Az enyém, belül a címkébe bele van írva a nevem.",
+  "user_name": "Teszt Elek",
+  "user_osztaly": "10.c"
 }
 ```
 
-## 4) PUT /api/items/:id
-A titkárság a tárgy státuszát „visszaadva”-ra állítja.
+## 5) DELETE /claims/:id
+Egy igénylés törlése. A főoldalon a saját igényléshez ez kapcsolódik a „Mégsem” gomb.
+
+**Példa válasz:**
+```json
+{
+  "id": 7
+}
+```
+
+## 6) PUT /items/:id
+A tárgy státuszának módosítása.
 
 **Példa kérés:**
 ```json
@@ -83,3 +114,7 @@ A titkárság a tárgy státuszát „visszaadva”-ra állítja.
   "status": "visszaadva"
 }
 ```
+
+## Megjegyzés a kliens oldali bejelentkezésről
+
+Az alkalmazásban a diák neve és osztálya a frontend session-ben van tárolva, nem külön users táblában. Az admin belépés jelenleg kliens oldali jelszóval védett.
