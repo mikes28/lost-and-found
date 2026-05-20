@@ -1,15 +1,25 @@
-FROM node:22-bullseye-slim
+FROM node:22-bookworm-slim
 
 WORKDIR /app
-
 COPY package*.json ./
 
-RUN npm install
-# Rebuild sqlite3 native addon inside the image to match the image's libc
-RUN npm rebuild sqlite3 --build-from-source || true
 
-COPY . .
+# Copy the application source
+COPY src/ ./src/
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["node", "./src/app.js"]
+ 
+# Install system build tools so native addons (sqlite3) can be built inside image
+RUN apt-get update && apt-get install -y --no-install-recommends \
+		python3 \
+		make \
+		g++ \
+		build-essential \
+		libsqlite3-dev \
+	&& rm -rf /var/lib/apt/lists/*
+
+# Install production dependencies and rebuild native addons to match image's libc
+RUN npm ci --omit=dev
+RUN npm rebuild sqlite3 --build-from-source || true

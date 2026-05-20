@@ -2,14 +2,9 @@ version: '3.8'
 
 services:
   backend:
-    image: node:22-bullseye-slim
-    working_dir: /app
-    volumes:
-      - ./backend:/app:delegated
-      - ./backend/lost_and_found.sqlite:/app/lost_and_found.sqlite
-    environment:
-      - NODE_ENV=development
-    command: sh -c "npm install && npm start"
+    image: lost-and-found-backend:latest
     ports:
       - "3000:3000"
+    volumes:
+      - ./backend/lost_and_found.sqlite:/app/lost_and_found.sqlite
     restart: unless-stopped

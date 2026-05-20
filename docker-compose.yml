@@ -1,6 +1,6 @@
 services:
   backend:
-    build: ./backend
+    image: lost-and-found-backend:latest
     ports:
       - "3000:3000"
     volumes:
@@ -8,7 +8,7 @@ services:
     restart: unless-stopped
 
   frontend:
-    build: ./frontend
+    image: lost-and-found-frontend:latest
     ports:
       - "80:3000"
     depends_on:
