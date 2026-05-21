@@ -9,8 +9,8 @@ Iskolai talált tárgy rendszer.
 - Backend: Express + SQLite
 - Frontend: Next.js
 - Run with Docker Compose on:
-	- Frontend: http://localhost:8080
-	- Backend: http://localhost:3000
+- Frontend: http://localhost:8080
+- Backend: http://localhost:3000
 
 ## Hogyan működik
 
@@ -61,3 +61,39 @@ rebuild.bat
 ```
 
 Ha Docker csoport jogosultság kell Linuxon, egyszer add hozzá a felhasználót a `docker` csoporthoz, majd jelentkezz ki és vissza.
+
+## Futtatás lokálisan
+
+Backend:
+
+```bash
+cd backend
+npm install
+npm start
+```
+
+Frontend:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+A frontend alapból a 3001-es porton fut, a backend pedig a 3000-esen.
+
+## Tesztek
+
+Backend tesztek:
+
+```bash
+cd backend
+npm test
+```
+
+Frontend tesztek:
+
+```bash
+cd frontend
+npm test
+```

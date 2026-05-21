@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { createItem, getItems, getClaims, type Item, type Claim, updateItemStatus } from "@/lib/api";
+import { createItem, getItems, getClaims, type Claim, type Item, updateItemStatus } from "@/lib/api";
 import { getSession, setSession, deriveUserId, type SessionUser } from "@/lib/session";
 
 export default function AdminPage() {

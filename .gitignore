@@ -1,43 +1,36 @@
-# npm
-node_modules/
-package-lock.json
-npm-shrinkwrap.json
+# Dependencies
+**/node_modules/
+
+# Build output
+**/.next/
+**/out/
+**/build/
+**/dist/
+**/*.tsbuildinfo
+
+# Logs
 *.log
-*.gz
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Yarn
-yarn-error.log
-yarn.lock
+# Environment files
+.env
+.env.*
+**/.env
+**/.env.*
 
-# Coveralls
-.nyc_output/
+# Local database
+backend/lost_and_found.sqlite
+
+# Coverage
 coverage/
+**/coverage/
 
 # Benchmarking
 benchmarks/graphs/
 
-# Build outputs
-.next/
-dist/
-build/
-*.tsbuildinfo
-
-# Environment files
-.env
-.env.local
-.env.*.local
-
-# IDE / OS files
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
-Thumbs.db
-
 # Docker / runtime
-.dockerignore
 *.pid
 *.pid.lock
 *.seed
@@ -48,5 +41,11 @@ tmp/
 temp/
 *.bak
 
-# ignore additional files using core.excludesFile
-# https://git-scm.com/docs/gitignore
+# Editor / OS files
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+Thumbs.db

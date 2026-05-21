@@ -1,6 +1,6 @@
 # Jegyzetek – Lost & Found
 
-Ez a fájl ötletek, kérdések és fejlesztési megjegyzések gyűjtésére szolgál.
+Ez a fájl szabadon használható ötletek, kérdések, tanári vagy diák megjegyzések gyűjtésére a projekthez.
 
 ---
 
@@ -15,26 +15,29 @@ Ez a fájl ötletek, kérdések és fejlesztési megjegyzések gyűjtésére szo
 
 ## Fejlesztési ötletek
 
-- Képfeltöltés a tárgyakhoz
-- Értesítés, ha valaki jelentkezik egy tárgyra
-- Külön admin felület finomabb jogosultságkezeléssel
-- Mobilbarát nézet továbbfejlesztése
-- Statisztikák: visszaadott tárgyak száma, átlagos visszaadási idő
-- Kategóriák: ruházat, elektronika, kulcs, egyéb
+- Képfeltöltés a tárgyakhoz a jelenlegi URL mező helyett
+- Email/SMS értesítés, ha valaki jelentkezik egy tárgyra
+- Szerver oldali admin autentikáció a kliens oldali jelszó helyett
+- Mobilbarát nézet finomhangolása
+- Statisztikák: hány tárgy került vissza, mennyi az átlagos megtalálási idő
+- Kategóriák: pl. ruházat, elektronika, kulcs, egyéb
 
 ---
 
 ## Kérdések, amiket érdemes átgondolni
 
-- Ki tud bejelenteni új tárgyat?
-- Ki látja a képeket?
-- Hogyan ellenőrizzük, hogy a jelentkező valóban a tulajdonos?
-- Milyen adatokat kell bekérni az igénylésnél?
+- Ki tud bejelenteni a tárgyakat az admin oldalon?
+- Ki látja és kezeli az igényléseket?
+- Elég-e a név + osztály + leírás az igényléshez, vagy kell további bizonyíték?
+- Hogyan lehetne gyorsítani az elveszett és talált tárgyak összekapcsolását?
+- Milyen részleteket kell megadni az igénylésnél (pl. márka, szín, méret)?
 
 ---
 
-## Megjegyzés a futtatásról
+## Diák megjegyzések
 
-- A projekt Docker Compose-szal fut.
-- A frontend a 8080-as porton érhető el.
-- A backend a 3000-es porton érhető el.
+> "A felület legyen egyszerű, gyorsan áttekinthető, és mobilon is használható."
+
+---
+
+*Ide írj bátran további ötleteket, kérdéseket, tapasztalatokat!*

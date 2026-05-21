@@ -1,28 +1,25 @@
-# ER-diagram (MVP)
+# ER-diagram
 
-A rendszer csak 3 táblát használ.
+A backend jelenleg 2 táblát használ. A felhasználói név és osztály nincs külön táblában, azt a frontend session tárolja.
 
-## 1) Users
-- `id`
-- `name`
-- `email`
-- `role` (diák vagy admin)
-
-## 2) Items
+## 1) Items
 - `id`
 - `title`
 - `description`
-- `status` (talált vagy visszaadva)
+- `status` (`talált` vagy `visszaadva`)
 - `image_url`
 
-## 3) Claims
+## 2) Claims
 - `id`
 - `item_id`
 - `user_id`
 - `message` (a diák bizonyítéka/leírása)
+- `user_name` (opcionális, megjelenítéshez)
+- `user_osztaly` (opcionális, megjelenítéshez)
+- `created_at`
 
 ## Kapcsolatok
 
-- Egy **User** több **Claim** rekordot létrehozhat.
 - Egy **Item** több **Claim** rekordhoz kapcsolódhat.
-- Minden **Claim** pontosan egy **User**-hez és egy **Item**-hez tartozik.
+- Minden **Claim** pontosan egy **Item**-hez tartozik.
+- A diák neve és osztálya kliens oldali sessionből érkezik, nem külön adatbázis táblából.
