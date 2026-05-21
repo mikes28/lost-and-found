@@ -33,7 +33,6 @@ const db = new sqlite3.Database(dbFile, (err) => {
         db.run(`ALTER TABLE claims ADD COLUMN user_name TEXT`, (err) => {});
         db.run(`ALTER TABLE claims ADD COLUMN user_osztaly TEXT`, (err) => {});
 
-        // No demo/example seeding by default.
     }
 });
 

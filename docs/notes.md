@@ -1,40 +1,40 @@
-# Jegyzetek, ötletek – Lost & Found
+# Jegyzetek – Lost & Found
 
-Ez a fájl szabadon használható ötletek, kérdések, tanári vagy diák megjegyzések gyűjtésére a projekthez.
+Ez a fájl ötletek, kérdések és fejlesztési megjegyzések gyűjtésére szolgál.
+
+---
+
+## Aktuális megvalósítás
+
+- Frontend: Next.js
+- Backend: Express
+- Adatbázis: SQLite
+- Indítás: Docker Compose
 
 ---
 
 ## Fejlesztési ötletek
 
-- Képfeltöltés a tárgyakhoz (pl. elveszett kulcstartó fotója)
-- Email/SMS értesítés, ha valaki jelentkezik egy tárgyra
-- Külön tanári/admin felület
-- Mobilbarát nézet (reszponzív design)
-- Statisztikák: hány tárgy került vissza, mennyi az átlagos megtalálási idő
-- Kategóriák: pl. ruházat, elektronika, kulcs, egyéb
+- Képfeltöltés a tárgyakhoz
+- Értesítés, ha valaki jelentkezik egy tárgyra
+- Külön admin felület finomabb jogosultságkezeléssel
+- Mobilbarát nézet továbbfejlesztése
+- Statisztikák: visszaadott tárgyak száma, átlagos visszaadási idő
+- Kategóriák: ruházat, elektronika, kulcs, egyéb
 
 ---
 
 ## Kérdések, amiket érdemes átgondolni
 
-- Ki tud bejelenteni?
+- Ki tud bejelenteni új tárgyat?
 - Ki látja a képeket?
-- Hogyan derül ki, tényleg azé, aki jelentkezik érte?
-- Hogyan lehetne gyorsítani az elveszett és talált tárgyak összekapcsolását?
-- Milyen részleteket kell megadni az igénylésnél (pl. márka, szín, méret)?
+- Hogyan ellenőrizzük, hogy a jelentkező valóban a tulajdonos?
+- Milyen adatokat kell bekérni az igénylésnél?
 
 ---
 
-## Tanári megjegyzések
+## Megjegyzés a futtatásról
 
-> "Jó lenne, ha a rendszer naplózná, ki mikor jelentkezett be vagy módosított adatot."
-
----
-
-## Diák megjegyzések
-
-> "A Vue 3-at még tanuljuk, de a Vite gyorsan elindul."
-
----
-
-*Ide írj bátran további ötleteket, kérdéseket, tapasztalatokat!*
+- A projekt Docker Compose-szal fut.
+- A frontend a 8080-as porton érhető el.
+- A backend a 3000-es porton érhető el.

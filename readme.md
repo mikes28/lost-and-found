@@ -1,27 +1,63 @@
 
 
-# Lost & Found – Iskolai MVP projekt
+# Lost & Found
 
-Egyszerű talált tárgy rendszer iskolai használatra.
+Iskolai talált tárgy rendszer.
 
-## Rövid működés
+## Stack
 
-1. A titkárság rögzíti a talált tárgyakat.
-2. A diák a főoldalon látja a talált tárgyakat, és jelentkezhet rájuk.
-3. A titkárság ellenőrzi az igénylést, majd a tárgy státuszát „visszaadva”-ra állítja.
+- Backend: Express + SQLite
+- Frontend: Next.js
+- Run with Docker Compose on:
+	- Frontend: http://localhost:8080
+	- Backend: http://localhost:3000
 
-## MVP szerepkörök
+## Hogyan működik
 
-- **Diák:** megnézi a talált tárgyakat, igénylést ad le.
-- **Admin (titkárság):** új tárgyat rögzít, igényléseket kezel, tárgyat kiad.
+1. A backend tárolja a talált tárgyakat SQLite adatbázisban.
+2. A frontend listázza a tárgyakat, és az igényléseket is kezeli.
+3. Az admin felületen lehet tárgyakat felvenni és státuszt módosítani.
 
-## Frontend nézetek (csak ez a 3)
+## Fő nézetek
 
-1. **Faliújság (főoldal):** talált tárgyak kártyás listája.
-2. **Bejelentő űrlap:** új talált tárgy rögzítése (admin).
-3. **Admin Dashboard:** igénylések listája és „Kiadva” gomb.
+1. **Főoldal:** talált tárgyak listája.
+2. **Bejelentkezés:** egyszerű login nézet.
+3. **Admin felület:** tárgykezelés és igénylések.
 
-## További dokumentáció
+## Dokumentáció
 
 - [API leírás](docs/api.md)
 - [ER-diagram](docs/er-diagram.md)
+- [Jegyzetek](docs/notes.md)
+
+## Gyors indítás
+
+Linux / macOS:
+
+```bash
+chmod +x run.sh
+./run.sh
+```
+
+Windows:
+
+```bat
+run.bat
+```
+
+## Rebuild + indítás (teljes újraépítés)
+
+Linux / macOS:
+
+```bash
+chmod +x rebuild.sh
+./rebuild.sh
+```
+
+Windows:
+
+```bat
+rebuild.bat
+```
+
+Ha Docker csoport jogosultság kell Linuxon, egyszer add hozzá a felhasználót a `docker` csoporthoz, majd jelentkezz ki és vissza.

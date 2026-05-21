@@ -1,11 +1,16 @@
-FROM node:22-alpine
+FROM node:22-bookworm-slim
 
 WORKDIR /app
 
-COPY .next/ ./.next/
 COPY package*.json ./
+RUN npm install
 
-RUN npm ci --only=production
+COPY . .
+RUN npm run build
+
+# Ensure standalone server can find static assets by copying the built static
+# files into the standalone bundle's expected location.
+RUN mkdir -p .next/standalone/.next && cp -r .next/static .next/standalone/.next/ || true
 
 EXPOSE 3000
 

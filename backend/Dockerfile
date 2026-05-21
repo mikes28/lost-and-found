@@ -1,25 +1,24 @@
 FROM node:22-bookworm-slim
 
 WORKDIR /app
+
+# Install build deps for sqlite3 native module
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  python3 \
+  build-essential \
+  libsqlite3-dev \
+  && rm -rf /var/lib/apt/lists/*
+
+ENV npm_config_build_from_source=true
+
+# Copy package manifest and install dependencies
 COPY package*.json ./
+RUN npm install --omit=dev
+RUN npm rebuild sqlite3 --build-from-source
 
-
-# Copy the application source
+# Copy application source
 COPY src/ ./src/
 
 EXPOSE 3000
 
-CMD ["node", "./src/app.js"]
- 
-# Install system build tools so native addons (sqlite3) can be built inside image
-RUN apt-get update && apt-get install -y --no-install-recommends \
-		python3 \
-		make \
-		g++ \
-		build-essential \
-		libsqlite3-dev \
-	&& rm -rf /var/lib/apt/lists/*
-
-# Install production dependencies and rebuild native addons to match image's libc
-RUN npm ci --omit=dev
-RUN npm rebuild sqlite3 --build-from-source || true
+CMD ["npm", "start"]

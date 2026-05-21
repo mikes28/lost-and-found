@@ -1,5 +1,5 @@
 # npm
-node_modules
+node_modules/
 package-lock.json
 npm-shrinkwrap.json
 *.log
@@ -10,11 +10,43 @@ yarn-error.log
 yarn.lock
 
 # Coveralls
-.nyc_output
-coverage
+.nyc_output/
+coverage/
 
 # Benchmarking
-benchmarks/graphs
+benchmarks/graphs/
+
+# Build outputs
+.next/
+dist/
+build/
+*.tsbuildinfo
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE / OS files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Docker / runtime
+.dockerignore
+*.pid
+*.pid.lock
+*.seed
+
+# Misc
+.cache/
+tmp/
+temp/
+*.bak
 
 # ignore additional files using core.excludesFile
 # https://git-scm.com/docs/gitignore
