@@ -27,7 +27,25 @@ backend/lost_and_found.sqlite
 coverage/
 **/coverage/
 
+# Benchmarking
+benchmarks/graphs/
+
+# Docker / runtime
+*.pid
+*.pid.lock
+*.seed
+
+# Misc
+.cache/
+tmp/
+temp/
+*.bak
+
 # Editor / OS files
 .DS_Store
 .idea/
 .vscode/
+*.swp
+*.swo
+*~
+Thumbs.db

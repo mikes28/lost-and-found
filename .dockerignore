@@ -1,0 +1,41 @@
+# Ignore node modules and local installs
+node_modules
+npm-debug.log*
+.yarn/*
+.pnpm-debug.log*
+
+# Next build output and other build folders
+.next
+out
+dist
+build
+
+# Local env files
+.env
+.env.*
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+
+# Docker
+docker-compose*.yml
+docker-compose*.yaml
+
+# Local SQLite DB
+**/lost_and_found.sqlite
+
+# Tests / coverage
+coverage/
+**/__tests__/
+
+# Public artifacts
+public/.DS_Store
+
+# Misc
+*.log

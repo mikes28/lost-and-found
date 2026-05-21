@@ -1,6 +1,15 @@
 # Jegyzetek – Lost & Found
 
-Ez a fájl szabadon használható ötletek, kérdések, tanári vagy diák megjegyzések gyűjtésére a projekthez. A jelenlegi alkalmazás már elkészült MVP, ezért ezek inkább további fejlesztési ötletek.
+Ez a fájl szabadon használható ötletek, kérdések, tanári vagy diák megjegyzések gyűjtésére a projekthez.
+
+---
+
+## Aktuális megvalósítás
+
+- Frontend: Next.js
+- Backend: Express
+- Adatbázis: SQLite
+- Indítás: Docker Compose
 
 ---
 
@@ -22,12 +31,6 @@ Ez a fájl szabadon használható ötletek, kérdések, tanári vagy diák megje
 - Elég-e a név + osztály + leírás az igényléshez, vagy kell további bizonyíték?
 - Hogyan lehetne gyorsítani az elveszett és talált tárgyak összekapcsolását?
 - Milyen részleteket kell megadni az igénylésnél (pl. márka, szín, méret)?
-
----
-
-## Tanári megjegyzések
-
-> "Jó lenne, ha a rendszer naplózná, ki mikor jelentkezett be vagy módosított adatot."
 
 ---
 
